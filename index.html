@@ -5,12 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Front-End/Web Development UI Assignment for Interviewees</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-    <p>Hello world!</p>
 
+    <link rel="stylesheet" href="css/committed.css" />
+
+    <script src="./jspm_packages/system.js"></script>
+    <script src="config.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="data/allData.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+      System.import('js/main.js');
+    </script>
+
+  </head>
+  <body>
+    <h1>Committed: The Git Commit Viewer</h2>
+    <div id="commits">
+    </div>
   </body>
 </html>
