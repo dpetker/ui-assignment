@@ -6,6 +6,7 @@
     <title>Front-End/Web Development UI Assignment for Interviewees</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/committed.css" />
 
     <!--jspm loader-->
@@ -21,15 +22,49 @@
 
   </head>
   <body>
-    <h1>Committed: The Git Commit Viewer</h2>
+    <h4>Committed.</h4>
     <table id="commits">
-      <thead>
+      <!--<thead>
         <th>Author</th>
         <th>Time</th>
         <th>Message</th>
-      </thead>
+      </thead>-->
       <tbody id="commit-list">
       </tbody>
     </table>
+
+    <!-- Commit Message Modal -->
+    <div class="modal" id="commit-msg-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Commit Message</h4>
+          </div>
+          <div class="modal-body">
+            <textarea value="" id="commit-msg-input"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patch Modal -->
+    <div class="modal" id="patch-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Patch</h4>
+          </div>
+          <div class="modal-body">
+            <pre id="patch-content"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

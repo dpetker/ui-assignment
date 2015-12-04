@@ -2,9 +2,9 @@ body {
     font-family: Helvetica,Arial,sans;
 }
 
-h1 {
+h4 {
     text-align:center;
-    color: #CECECE;
+    font-size: 18px;
 }
 
 #commits {
@@ -21,7 +21,6 @@ h1 {
     border-collapse:collapse;
 }
 
-
 #commit-list td {
     padding: 5px 10px;
 }
@@ -37,4 +36,9 @@ h1 {
 #commit-list .patch-link {
     color: rgb(0,40,180);
     text-decoration:none;
+}
+
+#commit-msg-input {
+    width: 500px;
+    height: 120px;
 }
