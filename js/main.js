@@ -1,5 +1,6 @@
 import CommitHistory from './CommitHistory';
 import CommitList from './CommitList';
+import 'bootstrap';
 
 $(function() {
   console.log( 'ALL_DATA is loaded with ' + ALL_DATA.length + ' records available.' );

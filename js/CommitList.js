@@ -1,12 +1,11 @@
-import ScrollableList from './ScrollableList';
 
 export default class CommitList {
 
     constructor(el, items=[]) {
 
-        this.el = el;
+        this.$el = el;
         this.items = items;
-        this.template = (commit, idx) =>
+        this.itemTemplate = (commit, idx) =>
         `<tr class="commit ${idx%2 === 0 ? 'even' : 'odd'}" id="${commit.sha}">
               <td class="author-name">${commit.author.login}</td>
               <td class="time">${this.formatDateTime(commit.commit.committer.date)}</td>
@@ -16,9 +15,19 @@ export default class CommitList {
               <td class="files">${this.formatFiles(commit.files)}</td>
 
          </tr>`
+
         this.pageSize = 25;
 
-        this.list = new ScrollableList(el, this.items.slice(0, this.pageSize), this.template);
+        this.render(0, this.pageSize);
+
+    }
+
+    render(start=0, end=25) {
+        
+        let html = this.items.slice(start, end-start)
+            .map(this.itemTemplate).join("");
+
+        this.$el.html(html);
     }
 
     formatDateTime(dateStr) {
