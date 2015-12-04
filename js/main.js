@@ -6,6 +6,6 @@ $(function() {
     
   let commitHistory = new CommitHistory(ALL_DATA);
 
-  let commitsView = new CommitList($("#commits"), commitHistory.getCommits());
+  let commitsView = new CommitList($("#commit-list"), commitHistory.getCommits());
 
 });

@@ -8,28 +8,14 @@
 
     <link rel="stylesheet" href="css/committed.css" />
 
-    <!--jspm loader-->
-    <script src="./jspm_packages/system.js"></script>
-    <script src="config.js"></script>
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="data/allData.js"></script>
-
-    <script>
-      System.import('js/main.js');
-    </script>
+    <script src="bundle.js"></script>
 
   </head>
   <body>
     <h1>Committed: The Git Commit Viewer</h2>
-    <table id="commits">
-      <thead>
-        <th>Author</th>
-        <th>Time</th>
-        <th>Message</th>
-      </thead>
-      <tbody id="commit-list">
-      </tbody>
-    </table>
+    <div id="commits">
+    </div>
   </body>
 </html>
