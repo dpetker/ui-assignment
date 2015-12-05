@@ -1,7 +1,7 @@
 //add modal container to body
 $(function () {
     $(document.body).append($("<div id='modal-container'></div>"));
-    $(window).on('resize', this.setBgSize);
+    $(window).on('resize', setBgSize);
 });
 
 function setBgSize() {

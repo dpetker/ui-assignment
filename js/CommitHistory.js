@@ -2,7 +2,7 @@
 import EventBus from './EventBus';
 
 function clone(obj) {
-    return Object.assign({}, obj);
+    return JSON.parse(JSON.stringify(obj));
 }
 
 class CommitHistory {

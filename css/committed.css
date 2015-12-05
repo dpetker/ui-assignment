@@ -2,14 +2,18 @@ body {
     font-family: Helvetica,Arial,sans;
 }
 
-h4 {
-    text-align:center;
+#heading {
+    display: block;
+    text-align:left;
     font-size: 18px;
+    width: 200px;
+    margin: 20px;
 }
 
 #commits {
     font-size: 0.8em;
     color: #666;
+    margin-left: 20px;
 }
 
 #commit-list tr.even {
@@ -41,6 +45,7 @@ h4 {
 #commit-list .commit-message.dirty {
     color: purple;
 }
+ 
 
 #commit-msg-input {
     width: 500px;
@@ -62,7 +67,19 @@ h4 {
     border-radius: 5px;
     min-width: 500px;
     min-height: 200px;
-    padding: 20px;
+    padding: 20px 20px 50px 20px;
+    max-width: 80%;
+    max-height: 450px;
+}
+
+.modal-dialog-content {
+    clear: both;
+}
+
+#patch-modal .modal-dialog-content pre {
+    font-size: 0.7em;
+    max-height: 340px;
+    overflow:auto;
 }
 
 .modal-dialog-title {
@@ -74,9 +91,7 @@ h4 {
     right: 15px;
     top: 15px;
 }
-.modal-dialog-content {
-    clear: both;
-}
+
 
 .modal-dialog-footer {
     position: absolute;
@@ -99,7 +114,8 @@ h4 {
 }
 
 .page-controls {
-    margin: 5px;
+    margin: 5px auto 5px;
+
 }
 .page-btn[disabled] {
     opacity: 0.5;

@@ -87,9 +87,9 @@ export default class CommitList {
     formatFiles(files) {
         return files.map(f => {
             if (f.patch) {
-                return `<a href="#" class="patch-link" role="button">${f.filename}</a>`;
+                return `<a href="#" class="patch-link" role="button">${f.filename}</a><br>`;
             } else {
-                return f.filename;
+                return f.filename + "<br>";
             }
         }).join(" ");
     }
