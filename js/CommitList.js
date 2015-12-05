@@ -1,4 +1,5 @@
 import EventBus from './EventBus';
+import escapeHTML from './escapeHTML';
 
 export default class CommitList {
 
@@ -17,25 +18,24 @@ export default class CommitList {
          </tr>`
 
         this.pageSize = 25;
-        this.tmpEl = document.createElement("div");    
 
-        this.render(0, this.pageSize);
+        this.numPages = Math.ceil(this.items.length / this.pageSize);
 
-        //listen for delegated clicks 
+        this.renderPage(0);
+
+        //listen for delegated clicks
         $("#commit-list").click((e) => {
+
+            let sha = $(e.target).parents(".commit").attr('id');
+
             if ($(e.target).hasClass('commit-message')){
-                let sha = $(e.target).parents(".commit").attr('id');
-                EventBus.dispatch("EDIT_COMMIT_MESSAGE", {
-                    sha
-                });
+                EventBus.dispatch("EDIT_COMMIT_MESSAGE", { sha });
+            }
+            if ($(e.target).hasClass('patch-link')){
+                let file = e.target.innerText;
+                EventBus.dispatch("SHOW_PATCH", { sha, file });
             }
         });
-
-        /*$(".patch-link").click((e) => {
-            EventBus.dispatch("SHOW_PATCH", {
-                id: e.currentTarget.id
-            });
-        });*/
 
         EventBus.on("COMMIT_MESSAGE_CHANGE", evt => {
             let commit = evt.data;
@@ -44,12 +44,28 @@ export default class CommitList {
         });
     }
 
+    renderPage(pageNum) {
+
+        let start = pageNum * this.pageSize;
+
+        this.render(start, start + this.pageSize);
+
+        $('.page-controls').html("");
+        for (let i = 0; i < this.numPages; i++) {
+            let btn = $(`<button class="page-btn" ${i === pageNum ? 'disabled=disabled': ''}
+                                         >${i+1}</button>`);
+            $(btn).on('click', () => { this.renderPage(i) });
+            $('.page-controls').append(btn);
+        };
+    }
+
     render(start=0, end=25) {
-        
-        let html = this.items.slice(start, end-start)
+
+        let html = this.items.slice(start, end + 1)
             .map(this.itemTemplate).join("");
 
         this.$el.html(html);
+
     }
 
     formatDateTime(dateStr) {
@@ -60,16 +76,13 @@ export default class CommitList {
         let message = msg;
         if (msg.length > 50) {
             message = msg.substr(0, 47) + "...";
-        }  
+        }
         return `<a title="${msg}" role="button"
                    class="commit-message ${dirty ? 'dirty' : ''}"
-                   href="#" >${message}</a>`;
+                   href="#" >${escapeHTML(message)}</a>`
+
     }
 
-    formatPatch(patchStr) {
-        this.tmpEl.innerHTML = patchStr;
-        return this.tmpEl.innerText;
-    }
 
     formatFiles(files) {
         return files.map(f => {
@@ -80,6 +93,5 @@ export default class CommitList {
             }
         }).join(" ");
     }
-
 
 }

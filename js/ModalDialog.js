@@ -9,8 +9,8 @@ function setBgSize() {
 }
 
 export default {
-    
-    show(id, title, content, buttons) {
+
+    show(id, title, contentEl, buttons) {
 
         $("#modal-container").html(`
                     <div id="${id}" class="modal-dialog">
@@ -18,10 +18,11 @@ export default {
                              <h3 class="modal-dialog-title">${title}</h3>
                              <a href="#" class="modal-dialog-close-btn">X</a>
                          </div>
-                         <div class="modal-dialog-content">${content}</div>
+                         <div class="modal-dialog-content"></div>
                          <div class="modal-dialog-footer"></div>
                      </div>
                  </div>`);
+        $(`#${id} .modal-dialog-content`).append(contentEl);
 
         for (let btnConfig of buttons) {
             $("#modal-container .modal-dialog-footer").append(this.getButton(btnConfig));
@@ -31,10 +32,10 @@ export default {
         $("#modal-container").show();
 
         $(`#${id} .modal-dialog-close-btn`).click(this.close);
-    
+
     },
 
-     
+
     close(evt) {
         if (evt) evt.preventDefault();
         $("#modal-dialog-footer a.btn").off();
@@ -43,7 +44,7 @@ export default {
     },
 
     getButton(btn) {
-        let $btn = $(`<button type="button" id="${btn.id}" 
+        let $btn = $(`<button type="button" id="${btn.id}"
                      class="btn ${btn.primary ? 'btn-primary': ''}"
                      >${btn.label}</button>`);
 
@@ -52,7 +53,7 @@ export default {
     }
 
 }
-   
+
 
 
 

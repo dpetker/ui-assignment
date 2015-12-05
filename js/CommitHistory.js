@@ -5,12 +5,12 @@ function clone(obj) {
     return Object.assign({}, obj);
 }
 
-class CommitHistory { 
+class CommitHistory {
 
     constructor(all_commits) {
         this.all_commits = [...all_commits];
     }
-    
+
     getCommits() {
         return [...this.all_commits]
     }
@@ -22,7 +22,7 @@ class CommitHistory {
             return clone(commit);
         }
     }
-     
+
     setMessage(sha, msg) {
         let commit = this.all_commits.find(c => c.sha === sha);
         if (commit) {
@@ -30,6 +30,15 @@ class CommitHistory {
             //mark commit as dirty
             commit._dirty = true;
             EventBus.dispatch("COMMIT_MESSAGE_CHANGE", clone(commit));
+        }
+    }
+
+    getPatch(commit, filename) {
+        let file = commit.files.find(f => f.filename === filename);
+        if (file) {
+            return file.patch;
+        } else {
+            return "";
         }
     }
 

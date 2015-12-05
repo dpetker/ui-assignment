@@ -98,3 +98,9 @@ h4 {
     background-color: rgb(255,216,4);
 }
 
+.page-controls {
+    margin: 5px;
+}
+.page-btn[disabled] {
+    opacity: 0.5;
+}
