@@ -33,12 +33,68 @@ h4 {
     color: rgb(180,0,60);
 }
 
-#commit-list .patch-link {
-    color: rgb(0,40,180);
+#commit-list .patch-link,
+#commit-list .commit-message {
     text-decoration:none;
+}
+
+#commit-list .commit-message.dirty {
+    color: purple;
 }
 
 #commit-msg-input {
     width: 500px;
     height: 120px;
 }
+
+/* ModalDialog */
+#modal-container {
+    position:fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.modal-dialog {
+    position:relative;
+    margin: 200px auto;
+    background-color: white;
+    border-radius: 5px;
+    min-width: 500px;
+    min-height: 200px;
+    padding: 20px;
+}
+
+.modal-dialog-title {
+    float: left;
+    margin-top: 0;
+}
+.modal-dialog-close-btn {
+    position:absolute;
+    right: 15px;
+    top: 15px;
+}
+.modal-dialog-content {
+    clear: both;
+}
+
+.modal-dialog-footer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.modal-dialog-footer .btn {
+    display:inline-block;
+    margin-right: 10px;
+}
+
+#msg-editable {
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+#msg-editable:hover {
+    background-color: rgb(255,216,4);
+}
+

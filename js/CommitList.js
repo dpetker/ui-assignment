@@ -1,3 +1,4 @@
+import EventBus from './EventBus';
 
 export default class CommitList {
 
@@ -6,10 +7,10 @@ export default class CommitList {
         this.$el = el;
         this.items = items;
         this.itemTemplate = (commit, idx) =>
-        `<tr class="commit ${idx%2 === 0 ? 'even' : 'odd'}" id="${commit.sha}">
+        `<tr class="commit ${idx%2 === 0 ? 'even' : 'odd'} " id="${commit.sha}">
               <td class="author-name">${commit.author.login}</td>
               <td class="time">${this.formatDateTime(commit.commit.committer.date)}</td>
-              <td class="msg" >${this.formatMessage(commit.commit.message)}</td>
+              <td class="msg" >${this.formatMessage(commit.commit.message, commit._dirty)}</td>
               <td class="additions">+${(commit.stats.additions)}</td>
               <td class="deletions">-${(commit.stats.additions)}</td>
               <td class="files">${this.formatFiles(commit.files)}</td>
@@ -20,14 +21,26 @@ export default class CommitList {
 
         this.render(0, this.pageSize);
 
-        $(".commit-message").click((e) => {
-            let msg = $(e.target).attr('title');
-            $("#commit-msg-input").val(msg);
+        //listen for delegated clicks 
+        $("#commit-list").click((e) => {
+            if ($(e.target).hasClass('commit-message')){
+                let sha = $(e.target).parents(".commit").attr('id');
+                EventBus.dispatch("EDIT_COMMIT_MESSAGE", {
+                    sha
+                });
+            }
         });
 
-        $(".patch-link").click((e) => {
-            let patch = $(e.target).data('content');
-            $("#patch-content").text(patch);
+        /*$(".patch-link").click((e) => {
+            EventBus.dispatch("SHOW_PATCH", {
+                id: e.currentTarget.id
+            });
+        });*/
+
+        EventBus.on("COMMIT_MESSAGE_CHANGE", evt => {
+            let commit = evt.data;
+            $(`#${commit.sha} .commit-message`).text(evt.data.commit.message)
+            .addClass(commit._dirty ? 'dirty' : '');
         });
     }
 
@@ -37,23 +50,20 @@ export default class CommitList {
             .map(this.itemTemplate).join("");
 
         this.$el.html(html);
-
     }
 
     formatDateTime(dateStr) {
         return new Date(dateStr).toLocaleString();
     }
 
-    formatMessage(msg) {
+    formatMessage(msg, dirty) {
         let message = msg;
         if (msg.length > 50) {
             message = msg.substr(0, 47) + "...";
         }  
-        return `<a title="${msg}"
-                   class="commit-message"
-                   href="#" role="button"
-                   data-toggle="modal"
-                   data-target="#commit-msg-modal">${message}</a>`;
+        return `<a title="${msg}" role="button"
+                   class="commit-message ${dirty ? 'dirty' : ''}"
+                   href="#" >${message}</a>`;
     }
 
     formatPatch(patchStr) {
@@ -64,14 +74,7 @@ export default class CommitList {
     formatFiles(files) {
         return files.map(f => {
             if (f.patch) {
-                return `<a href="#" class="patch-link" role="button"
-                data-toggle="modal"
-                title="Patch for ${f.filename}"
-                data-placement="top" 
-                data-trigger="focus"
-                data-target="#patch-modal"
-                data-content="${this.formatPatch(f.patch)}"
-                >${f.filename}</a>`;
+                return `<a href="#" class="patch-link" role="button">${f.filename}</a>`;
             } else {
                 return f.filename;
             }
