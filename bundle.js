@@ -733,7 +733,7 @@ $__System.register('15', ['14', '16', '17', '18'], function (_export) {
 
                     EventBus.on("COMMIT_MESSAGE_CHANGE", function (evt) {
                         var commit = evt.data;
-                        $('#' + commit.sha + ' .commit-message').text(evt.data.commit.message).addClass(commit._dirty ? 'dirty' : '');
+                        $('#' + commit.sha + ' .msg').html(_this.formatMessage(evt.data.commit.message, true));
                     });
                 }
 
@@ -1792,7 +1792,7 @@ $__System.register('1', ['13', '14', '15', '16', '39'], function (_export) {
                     var sha = evt.data.sha;
                     var commit = commitHistory.getCommit(sha);
 
-                    ModalDialog.show("commit-msg-modal", "Commit Message", '<div id="msg-editable" contentEditable="true">' + escapeHTML(commit.commit.message) + '</div>', [{
+                    ModalDialog.show("commit-msg-modal", "Commit Message", '<textarea id="msg-editable">' + escapeHTML(commit.commit.message) + '</textarea>', [{
                         id: "commit-msg-cancel-btn",
                         label: "Cancel",
                         handler: function handler(e) {
@@ -1806,7 +1806,7 @@ $__System.register('1', ['13', '14', '15', '16', '39'], function (_export) {
                         handler: function handler(e) {
                             e.preventDefault;
                             //save the commit to history
-                            var newMsg = $("#msg-editable").text();
+                            var newMsg = $("#msg-editable").val();
                             commitHistory.setMessage(sha, newMsg);
                             ModalDialog.close();
                         }

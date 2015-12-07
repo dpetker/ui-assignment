@@ -107,10 +107,7 @@ body {
 #msg-editable {
     min-height: 100px;
     margin-bottom: 10px;
-}
-
-#msg-editable:hover {
-    background-color: rgb(255,216,4);
+    width: 100%;
 }
 
 .page-controls {

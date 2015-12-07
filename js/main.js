@@ -18,7 +18,7 @@ $(function() {
 
       ModalDialog.show("commit-msg-modal",
                        "Commit Message",
-                       `<div id="msg-editable" contentEditable="true">${escapeHTML(commit.commit.message)}</div>`,
+                       `<textarea id="msg-editable">${escapeHTML(commit.commit.message)}</textarea>`,
                        [{
                            id: "commit-msg-cancel-btn",
                            label: "Cancel",
@@ -33,7 +33,7 @@ $(function() {
                            handler: (e) => {
                                e.preventDefault;
                                //save the commit to history
-                               let newMsg = $("#msg-editable").text();
+                               let newMsg = $("#msg-editable").val();
                                commitHistory.setMessage(sha, newMsg);
                                ModalDialog.close();
                            }

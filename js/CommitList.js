@@ -39,8 +39,8 @@ export default class CommitList {
 
         EventBus.on("COMMIT_MESSAGE_CHANGE", evt => {
             let commit = evt.data;
-            $(`#${commit.sha} .commit-message`).text(evt.data.commit.message)
-            .addClass(commit._dirty ? 'dirty' : '');
+            $(`#${commit.sha} .msg`)
+                .html(this.formatMessage(evt.data.commit.message, true));
         });
     }
 
