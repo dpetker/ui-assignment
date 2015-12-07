@@ -1,0 +1,119 @@
+body {
+    font-family: Helvetica,Arial,sans;
+}
+
+#heading {
+    display: block;
+    text-align:left;
+    font-size: 18px;
+    width: 200px;
+    margin: 20px;
+}
+
+#commits {
+    font-size: 0.8em;
+    color: #666;
+    margin-left: 20px;
+}
+
+#commit-list tr.even {
+    background-color: #EEEEEE;
+}
+
+#commit-list table {
+    border-spacing:0;
+    border-collapse:collapse;
+}
+
+#commit-list td {
+    padding: 5px 10px;
+}
+
+#commit-list .additions {
+    color: green;
+}
+
+#commit-list .deletions {
+    color: rgb(180,0,60);
+}
+
+#commit-list .patch-link,
+#commit-list .commit-message {
+    text-decoration:none;
+}
+
+#commit-list .commit-message.dirty {
+    color: purple;
+}
+ 
+
+#commit-msg-input {
+    width: 500px;
+    height: 120px;
+}
+
+/* ModalDialog */
+#modal-container {
+    position:fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.modal-dialog {
+    position:relative;
+    margin: 200px auto;
+    background-color: white;
+    border-radius: 5px;
+    min-width: 500px;
+    min-height: 200px;
+    padding: 20px 20px 50px 20px;
+    max-width: 80%;
+    max-height: 450px;
+}
+
+.modal-dialog-content {
+    clear: both;
+}
+
+#patch-modal .modal-dialog-content pre {
+    font-size: 0.7em;
+    max-height: 340px;
+    overflow:auto;
+}
+
+.modal-dialog-title {
+    float: left;
+    margin-top: 0;
+}
+.modal-dialog-close-btn {
+    position:absolute;
+    right: 15px;
+    top: 15px;
+}
+
+
+.modal-dialog-footer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.modal-dialog-footer .btn {
+    display:inline-block;
+    margin-right: 10px;
+}
+
+#msg-editable {
+    min-height: 100px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.page-controls {
+    margin: 5px auto 5px;
+
+}
+.page-btn[disabled] {
+    opacity: 0.5;
+}
